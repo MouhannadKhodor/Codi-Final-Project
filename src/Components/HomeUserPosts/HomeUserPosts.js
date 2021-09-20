@@ -7,7 +7,7 @@ import Footer from "../Footer/Footer"
 import PostUpload from "../PostUpload/PostUpload"
 import PostDetails from '../PostDetails/PostDetails'
 import { Redirect } from "react-router"
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function HomeUserPosts() {
     const [found, setFound] = useState([])
@@ -64,18 +64,18 @@ function HomeUserPosts() {
         <div className="col-xs-12 col-sm-6 col-md-4 " key={key}>
             <div className="card mb-4 itemHover">
                 <div className="view overlay">
-                    <img className="card-img-top" height="250" src={ 'http://localhost:8000/public/' + found.image} alt={found.image} />
+                    <img className="card-img-top" height="250" src={'http://localhost:8000/public/' + found.image} alt={found.image} />
                     <div className="mask mx-2 mt-1">
                         {found.date.slice(0, 10) + ' ' + found.date.slice(11, 16)}
                     </div>
-                    
+
 
                 </div>
                 <div className="card-body">
                     <h4 className="card-title">{found.title}</h4>
                     <p className="card-text">{found.country + "-" + found.city}</p>
 
-                    <button type="button" className="btn btn-warning btnMore"> <Link to={`/PostDetails/${found._id}`} style={{textDecoration:'none', color:'black'}} > Read more</Link></button>
+                    <button type="button" className="btn btn-warning btnMore"> <Link to={`/PostDetails/${found._id}`} style={{ textDecoration: 'none', color: 'black' }} > Read more</Link></button>
                 </div>
             </div>
         </div>
@@ -84,7 +84,7 @@ function HomeUserPosts() {
         <div className="col-xs-12 col-sm-6 col-md-4" key={key}>
             <div className="card mb-4 itemHover">
                 <div className="view overlay">
-                    <img className="card-img-top" height="250" src={ 'http://localhost:8000/public/' + lost.image} alt={lost.image} />
+                    <img className="card-img-top" height="250" src={'http://localhost:8000/public/' + lost.image} alt={lost.image} />
                     <div className="mask rgba-white-slight mx-2 mt-1">
                         {lost.date.slice(0, 10) + ' ' + lost.date.slice(11, 16)}
                     </div>
@@ -94,7 +94,7 @@ function HomeUserPosts() {
                     <h4 className="card-title">{lost.title}</h4>
                     <p className="card-text">{lost.country + "-" + lost.city}</p>
 
-                    <button type="button" className="btn btn-warning btnMore"><Link to={`/PostDetails/${lost._id}`} style={{textDecoration:'none', color:'black'}} > Read more</Link></button>
+                    <button type="button" className="btn btn-warning btnMore"><Link to={`/PostDetails/${lost._id}`} style={{ textDecoration: 'none', color: 'black' }} > Read more</Link></button>
                 </div>
             </div>
         </div>
