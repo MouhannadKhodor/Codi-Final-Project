@@ -1,0 +1,58 @@
+.userNavarListItems li{
+    margin-right:50px !important;
+}
+#navbar-nav ul {
+    margin-left:-100px !important;
+}
+
+.fa-home,.fa-power-off{
+    font-size: 25px;
+    color: #feab3b;
+}
+
+.fa-home:hover{
+    cursor: pointer;
+}
+
+.userNavarListItems li a {
+    color: white;
+  }
+  .userNavarListItems li a:hover, .lastNavItem:hover {
+    color: #feab3b;
+    text-shadow: 0 0 5px #feab3b;
+  }
+
+  
+
+  .userNavbar{
+    background-color: black;
+    
+  }
+
+  .navAvatar{
+      border-radius: 50%;
+      border:3px solid #feab3b
+  }
+
+  .navAvatar:hover{
+    box-shadow: 0 0 55px #feab3b;
+  }
+
+  .lastNavItem{
+      list-style-type: none;
+  }
+
+  .navPostBtn{
+      color: white;
+      background-color: #feab3b;
+      border-radius: 20px 20px 20px 20px;
+      width: 120px;
+      
+  }
+
+  .navPostBtn:hover{
+    box-shadow: 0 0 55px #feab3b;
+  }
+
+
+  

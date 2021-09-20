@@ -1,0 +1,49 @@
+.card{
+    margin: 5% 0%;
+  }
+  
+  .card-body{
+    margin: 0% 0% 0% 3%;
+    padding: 6% 0%;
+  }
+
+  .HrContent{
+    display: flex;
+    align-items: flex-end;
+    margin: 0 0 25px;
+    color: #feab3b;
+  }
+   
+  .HrContent hr{
+    margin: 0px 10px 10px;
+    padding: 0;
+    border: solid #333;
+    border-width: 0 0 1px;
+    flex: 1 0 0;
+  }
+
+  .viewMoreBtn{
+      border-radius: 10px 10px 10px 10px;
+      background-color: #feab3b;
+      color: white;
+  }
+
+  .viewMoreBtn{
+    border:none;
+  }
+
+  .viewMoreBtn:hover{
+    color:#feab3b;
+    border:1px solid #feab3b;
+    background-color: white;
+    
+  }
+
+  .btnMore:hover{
+    background-color: white;
+  }
+  
+  .itemHover:hover{
+    cursor:pointer;
+    box-shadow: #feab3b 0px 4px 12px;
+  }

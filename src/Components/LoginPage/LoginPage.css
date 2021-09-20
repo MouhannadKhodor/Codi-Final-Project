@@ -1,0 +1,92 @@
+.LoginPageMainDiv{
+    width: 100%;
+    height: 720px;
+  background-image: url('../../Images/lf.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.modal-login {		
+	color: #feab3b;
+	width: 350px;
+    margin-top: 150px;
+    
+}
+.modal-login .modal-content {
+	padding: 20px;
+	border-radius: 5px;
+	border: none;
+    background-color: black;
+}
+.modal-login .modal-header {
+	border-bottom: none;   
+	position: relative;
+	justify-content: center;
+}
+.modal-login h4 {
+	text-align: center;
+	font-size: 26px;
+	margin: 30px 0 -15px;
+}
+
+.modal-login .form-control, .modal-login .btn {
+	min-height: 40px;
+	border-radius: 3px; 
+}
+	
+.modal-login .modal-footer {
+	background: #feab3b;
+	border-color: #feab3b;
+	text-align: center;
+	justify-content: center;
+	margin: 0 -20px -20px;
+	border-radius: 5px;
+	font-size: 13px;
+}
+.modal-login .modal-footer a {
+	color: black;
+}		
+.modal-login .avatar {
+	position: absolute;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	top: -70px;
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	padding: 15px;
+	
+}
+
+
+.modal-login .avatar img {
+	width: 100%;
+    height: 100%;
+    border-radius: 100%;
+	border:3px solid #feab3b
+	
+}
+.modal-login.modal-dialog {
+	margin-top: 80px;
+}
+.modal-login .btn, .modal-login .btn:active {
+	color: #feab3b;
+	border-radius: 4px;
+	background: #feab3b;
+	text-decoration: none;
+	transition: all 0.4s;
+	line-height: normal;
+	border: none;
+}
+.modal-login .btn:hover, .modal-login .btn:focus {
+	background: #feab3b;
+	outline: none;
+}
+
+.notAUserLoginBtn:hover{
+	color: white;
+	cursor: pointer;
+}

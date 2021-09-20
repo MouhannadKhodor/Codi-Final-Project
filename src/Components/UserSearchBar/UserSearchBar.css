@@ -1,0 +1,84 @@
+.sb-example-3 .search__title {
+    font-size: 22px;
+    font-weight: 900;
+    text-align: center;
+    color: #feab3b;
+}
+.sb-example-3 .search__input {
+    width: 100%;
+    padding: 12px 24px;
+    background-color: transparent;
+    transition: transform 250ms ease-in-out;
+    font-size: 14px;
+    line-height: 18px;
+    color: black;
+    
+
+
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    background-position: 95% center;
+    border-radius: 50px;
+    border: 1px solid black;
+    transition: all 250ms ease-in-out;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+.sb-example-3 .search__input::placeholder {
+        color: #feab3b;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+
+.sb-example-3 .search__input:hover,
+    .search__input:focus {
+        padding: 12px 0;
+        outline: 0;
+        border: 1px solid transparent;
+        border-bottom: 1px solid #575756;
+        border-radius: 0;
+        background-position: 100% center;
+    }
+    @media only screen and (max-width: 450px) {
+        .searchDiv{
+            width: 300px;
+        }
+      }
+      @media only screen and (max-width: 375px) {
+        .searchDiv{
+            width: 250px;
+        }
+      }
+    .searchDiv{
+        margin-left: -40px;
+    }
+
+    .advancedBtn{
+        margin-top: -48px;
+        margin-left:19px;
+        border-top: 0px solid transparent;
+        width: 7em; height: 20em;
+        /* WebKit browsers, old syntax */
+        background: -webkit-radial-gradient(50% 0, circle, transparent 25%, #feab3b 30%);
+        transform:rotate(270deg);
+        border-radius:30px 30px 30px 30px;      
+        font-size: 7px;
+    }
+    .advancedBtn:hover{
+        text-shadow: 1px 1px 1px #000, 
+               3px 3px 5px blue; 
+              
+    }
+    
+    .rotate {
+        display: inline-block;
+        transform: rotate(90deg); 
+        -moz-transform: rotate(90deg);
+        font-size: 12px;
+        text-align: center;
+        margin: 25px 0px 0px -18px;
+        
+      }
+    
