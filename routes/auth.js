@@ -16,44 +16,57 @@ router.post('/register', async (req,res) => {
     
     //checking if the email is unique
     const emailExist = await User.findOne({email:req.body.email});
-    if(emailExist) return res.status(400).send("Email already exist")
+    if(emailExist) return  ({message:"Email already exist"})
     
-
     //Hash the password
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(req.body.password, salt)
 
+    
     //adding user
     const user = new User({
         username:req.body.username,
         email:req.body.email,
-        password:hashPassword
+        password:hashPassword,
+        role:req.body.role
     })
     try{
         const saveUser = await user.save();
-        res.json({username: user._id,email:user.email})
+        res.json({id: user._id,email:user.email,role:user.role})
     }catch(err){
         res.json({ meesage:err })
     }
- })
 
+ })
 
 
  //LOGIN
  router.post('/login',async (req,res)=>{
     const {error} = loginValidation(req.body)
-    if(error) return res.status(400).json(error.details[0].message)
+    if(error) return res.status(400).json({message:error.details[0].message})
 
     //checking if the user exist
     const user = await User.findOne({email:req.body.email});
-    if(!user) return res.status(400).json("Email or password is incorrect")
+    if(!user) return res.status(400).json({message:"Email or password is incorrect"})
 
     //checking if password is correct
     const validPass = await bcrypt.compare(req.body.password,user.password)
-    if(!validPass)  res.status(400).json("Email or password is incorrect")
+    if(!validPass) return res.status(400).json({message:"Email or password is incorrect"})
 
     //create and assign token
     const token = jwt.sign({_id:user._id}, process.env.TOKEN_SECRET)
-    res.header('auth-token',token).json({id:user._id,token:token})
+    res.header('auth-token',token).json({data:{username:user.username,email:user.email,id:user._id,role:user.role},access_token:token})
  })
+
+ //Get user By Id
+router.get('/:id',async(req,res)=>{
+    try{
+        const user = await User.findById(req.params.id)
+          res.json(user)
+          
+      }catch(err){
+          res.json({ message:err })
+      }
+})
+
 module.exports = router

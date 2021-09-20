@@ -1,3 +1,4 @@
+const { number } = require('@hapi/joi')
 const mongoose = require('mongoose')
 
 
@@ -19,6 +20,10 @@ const UserSchema = mongoose.Schema({
     date:{
         type:Date,
         default:Date.now
+    },
+    role:{
+        type:String,
+        default:"1"
     }
 })
 
