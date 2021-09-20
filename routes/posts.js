@@ -116,4 +116,22 @@ router.get('/latest/found', async (req, res) => {
     }
 })
 
+router.get('/latest/sameArea/:city', async (req, res) => {
+    try {
+        const posts = await Post.find({ city:req.params.city} ).limit(6).sort({ date: -1 });
+        res.json(posts)
+    } catch (err) {
+        res.json({ message: err })
+    }
+})
+
+router.get('/latest/:type', async (req, res) => {
+    try {
+        const posts = await Post.find({ city:req.params.type} ).sort({ date: -1 });
+        res.json(posts)
+    } catch (err) {
+        res.json({ message: err })
+    }
+})
+
 module.exports = router;
