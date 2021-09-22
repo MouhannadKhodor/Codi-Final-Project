@@ -1,6 +1,6 @@
 import React, { useEffect, useState,useContext } from "react"
 import axios from 'axios'
-import './PostUpload.css'
+import './PostEdit.css'
 import { Layout, Container, BoxUpload, ImagePreview } from './index';
 import FolderIcon from "./assets/folder.svg";
 import CloseIcon from "./assets/CloseIcon.svg";
@@ -9,8 +9,47 @@ import { toast } from "react-toastify";
 import UserNavbar from "../UserNavbar/UserNavbar";
 import Footer from "../Footer/Footer";
 import { getCookie } from "../../cookies";
+import { useParams } from "react-router";
+import ReactLoading from 'react-loading';
+function PostEdit() {
+    const [post,setPost] = useState([])
+    const postId = useParams()
 
-function PostUpload() {
+    useEffect(()=>{
+        const getPostData = async () => {
+            await fetch(`http://localhost:8000/posts/${postId.id}`, {
+                method: "get",
+
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            })
+                .then((response) => response.json()) //2
+                .then((data) => {
+                    if (data) {
+                        if (typeof data[0] === 'object') {
+                            setPost(data);
+                        }
+                        else {
+                            setPost([data]);
+                        }
+                    }
+                })
+        };getPostData()
+    },[])
+    var data;
+    if(post[0] == undefined){
+        console.log("still undefined")
+
+    }
+    else{
+        data=post[0]
+        console.log(postId.id)
+    } 
+    
+    console.log(data);
     const userID = getCookie('id')
     const [radioValue,setRadioValue] = useState("found");
     const [title,setTitle] = useState("");
@@ -54,16 +93,25 @@ function PostUpload() {
         fData.append('status','status') 
         fData.append('type',radioValue) 
         fData.append('categoryID',category) 
-        
-       await fetch('http://localhost:8000/posts', {
-            method: "post",
+        for (var pair of fData.entries()) {
+            console.log(pair[0]+ ', ' + pair[1]); 
+        }
+       await fetch(`http://localhost:8000/posts/${postId.id}`, {
+            method: "PATCH",
             body: fData,
             headers: {
                 'Accept': 'multipart/form-data',
             },
             credentials: 'include'
         })
-            .then(res => toast.success("Post has been uploaded"))
+            .then(res => toast.success("post has been updated", {
+                autoClose: 2500,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                }))
     }
 
     
@@ -73,6 +121,7 @@ function PostUpload() {
     }
     const selectRegion = (val) => {
         setRegion(val);
+        
     }
 
     useEffect( ()=>{
@@ -106,6 +155,7 @@ function PostUpload() {
     
     return (
         <>
+        {(post[0] == undefined) ? <center><ReactLoading type="balls" color="#feab3b" height={667} width={375} /></center> :<>
         <UserNavbar></UserNavbar>
             <form method="POST" onSubmit={changeOnClick} encType="multipart/form-data">
                 <div className="container-lg" style={{ marginTop: '120px' }}>
@@ -185,14 +235,14 @@ function PostUpload() {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="formGroupExampleInput">Title</label>
-                                    <input type="text" onChange={(e)=>{setTitle(e.target.value)}} className="form-control" id="formGroupExampleInput" placeholder="Title" />
+                                    <input type="text" defaultValue={data.title}  onChange={(e)=>{setTitle(e.target.value)}} className="form-control" id="formGroupExampleInput" placeholder="Title" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="exampleFormControlTextarea1">Description</label>
-                                    <textarea onChange={(e)=>{setDesc(e.target.value)}} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <textarea defaultValue={data.description}  onChange={(e)=>{setDesc(e.target.value)}} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                                 </div>
                                 <div className="mb-3">
-                                    <select onChange={(e)=>{setCategory(e.target.value)}} className="form-select" aria-label="Default select example">
+                                    <select  onChange={(e)=>{setCategory(e.target.value);}} className="form-select" aria-label="Default select example">
                                         <option>Category</option>
                                         {categories}
                                     </select>
@@ -203,7 +253,7 @@ function PostUpload() {
                                         <div className="input-group-prepend">
                                             <label className="input-group-text" htmlFor="inputGroupSelect01">Country</label>
                                         </div>
-                                        <CountryDropdown
+                                        <CountryDropdown 
                                             className="custom-select "
                                             value={country}
                                             onChange={(val) => selectCountry(val)} />
@@ -226,7 +276,7 @@ function PostUpload() {
                                 <dl className="param param-feature">
                                     <dt><hr /></dt>
                                     <dd><button type="submit" className="btn btn-warning" style={{ float: 'right' }}>
-                                        Upload
+                                        Update
                                     </button></dd>
                                 </dl>
                             </article>
@@ -239,13 +289,10 @@ function PostUpload() {
 
 
             </form>
-            {/* 
-                <input type="file"  onChange={onChangeFile} />
-                <input type="submit" value="send" />
-             */}
+            </>}
              <Footer></Footer>
         </>
     )
 }
 
-export default PostUpload
+export default PostEdit

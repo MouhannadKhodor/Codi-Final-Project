@@ -8,6 +8,7 @@ import PostUpload from "../PostUpload/PostUpload"
 import PostDetails from '../PostDetails/PostDetails'
 import { Redirect } from "react-router"
 import { Link } from 'react-router-dom'
+import Categories from "../Categories/Categories"
 
 function HomeUserPosts() {
     const [found, setFound] = useState([])
@@ -104,7 +105,8 @@ function HomeUserPosts() {
             {/* <PostUpload></PostUpload> */}
             <UserNavbar></UserNavbar>
             <ImageSlider></ImageSlider>
-            <UserSearchBar></UserSearchBar>
+            {/* <UserSearchBar></UserSearchBar> */}
+            <Categories></Categories>
 
             <div className="container">
 
@@ -116,7 +118,8 @@ function HomeUserPosts() {
                 <div className="form-group">
                     <button className=" viewMoreBtn btn-lg float-right"
                         type="submit">
-                        View More
+                            <Link to="/FoundItems" style={{textDecoration:'none',color:'black'}}>View More</Link>
+                        
                         <i className="bi bi-chevron-right moreShevronIcon" style={{ color: 'black' }}></i>
                     </button>
                 </div>
@@ -130,7 +133,8 @@ function HomeUserPosts() {
                 <div className="form-group">
                     <button className=" viewMoreBtn btn-lg float-right"
                         type="submit">
-                        View More
+                            <Link to="/LostItems" style={{textDecoration:'none',color:'black'}}>View More</Link>
+
                         <i className="bi bi-chevron-right moreShevronIcon" style={{ color: 'black' }}></i>
                     </button>
                 </div>
@@ -142,3 +146,4 @@ function HomeUserPosts() {
 }
 
 export default HomeUserPosts
+

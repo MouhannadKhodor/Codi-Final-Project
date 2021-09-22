@@ -10,6 +10,10 @@ import PostDetails from './PostDetails/PostDetails';
 import PostUpload from './PostUpload/PostUpload';
 import LostItemsPage from './LostItemsPage/LostItemsPage';
 import FoundItemsPage from './FoundItemsPage/FoundItemsPage';
+import CateegoryItemsPage from './CategoryItemsPage/CategoryItemsPage';
+import UserProfile from './UserProfile/UserProfile';
+import UserPosts from './UserPosts/UserPosts';
+import PostEdit from './PostEdit/PostEdit';
 export default function Routes() {
 
     const {
@@ -18,8 +22,6 @@ export default function Routes() {
 
     return (
         <Switch>
-            
-            
             <PublicRoute path="/" component={LoginPage} exact access_token={access_token} />
             <PublicRoute path="/Register" component={RegisterPage} exact access_token={access_token} />
             
@@ -30,14 +32,16 @@ export default function Routes() {
             <PrivateRoute path="/PostUpload" component={PostUpload} exact access_token={access_token} role={role}/>
             <PrivateRoute path="/LostItems" component={LostItemsPage} exact access_token={access_token} role={role}/>
             <PrivateRoute path="/FoundItems" component={FoundItemsPage} exact access_token={access_token} role={role}/>
-
+            <PrivateRoute path="/catItems/:data" component={CateegoryItemsPage} exact access_token={access_token} role={role}/>
+            <PrivateRoute path="/Profile" component={UserProfile} exact access_token={access_token} role={role}/>
+            <PrivateRoute path="/Posts" component={UserPosts} exact access_token={access_token} role={role} />
+            <PrivateRoute path="/PostEdit/:id" component={PostEdit} exact access_token={access_token} role={role} />
 
             {/* here are the Admin routes */}
             <PrivateRoute path="/HomeAdmin"  exact access_token={access_token} role={role}/>
             
 
             {/* <PrivateRoute path="/" component={Home} access_token={access_token} role={role} exact /> */}
-            <PrivateRoute path="/profile" access_token={access_token} role={role} />
             <Route component={NotFound} />
         </Switch>
     );
@@ -51,6 +55,7 @@ function PublicRoute({ path, component: Component,role, access_token, ...props }
         } />
     )
 }
+
 
 function PrivateRoute({ path, component: Component, access_token, role, ...props }) {
     return (

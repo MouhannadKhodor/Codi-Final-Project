@@ -6,7 +6,7 @@ function LostItemsPage() {
     const [lost, setLost] = useState([])
     useEffect(()=>{
         const getLost = async () => {
-            await fetch(`http://localhost:8000/posts/latest/lost`, {
+            await fetch(`http://localhost:8000/posts/latest/all/lost`, {
                 method: "get",
 
                 headers: {
