@@ -5,12 +5,13 @@ const Post = require('../models/Post')
 const verify = require('./verifyToken')
 const multer = require('multer')
 const path = require('path')
+
 //Routes
 
 //Upload Image
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
-        callback(null, "../public/uploads")
+        callback(null, path.join(__dirname, '../public/uploads/'))
     },
     filename: (req, file, callback) => {
         console.log(file)
@@ -33,6 +34,7 @@ router.get('/', async (req, res) => {
 //Insert a post
 router.post('/', upload.single("image"), async (req, res) => {
     const post = new Post({
+        userID:req.body.userID,
         title: req.body.title,
         description: req.body.description,
         country: req.body.country,
@@ -79,6 +81,7 @@ router.patch('/:id', upload.single("image"), async (req, res) => {
     try {
         const updatePost = await Post.findByIdAndUpdate(req.params.id, {
             $set: {
+                userID:req.body.id,
                 title:req.body.title,
                 description:req.body.description,
                 country:req.body.country,
@@ -124,14 +127,35 @@ router.get('/latest/sameArea/:city', async (req, res) => {
         res.json({ message: err })
     }
 })
-
-router.get('/latest/:type', async (req, res) => {
+//get posts by cat type
+router.get('/latest/all/:type', async (req, res) => {
     try {
-        const posts = await Post.find({ city:req.params.type} ).sort({ date: -1 });
+        const posts = await Post.find({ type:req.params.type}).sort({ date: -1 });
         res.json(posts)
     } catch (err) {
         res.json({ message: err })
     }
 })
+
+//get posts by cat
+router.get('/catItems/:id', async (req, res) => {
+    try {
+        const posts = await Post.find({ categoryID:req.params.id} ).sort({ date: -1 });
+        res.json(posts)
+    } catch (err) {
+        res.json({ message: err })
+    }
+})
+
+//get posts by userID
+router.get('/user/:id', async (req, res) => {
+    try {
+        const posts = await Post.find({ userID:req.params.id} ).sort({ date: -1 });
+        res.json(posts)
+    } catch (err) {
+        res.json({ message: err })
+    }
+})
+
 
 module.exports = router;

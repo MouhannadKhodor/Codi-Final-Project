@@ -7,17 +7,6 @@ const path = require('path')
 
 //Routes
 
-//Upload Image
-const storage = multer.diskStorage({
-    destination: (req, file, callback) => {
-        callback(null, "../server/public/uploads")
-    },
-    filename: (req, file, callback) => {
-        console.log(file)
-        callback(null,Date.now()+ path.extname(file.originalname));
-    }
-})
-const upload = multer({ storage: storage });
 
 //Get all categories
 router.get('/', async (req, res) => {
@@ -30,12 +19,11 @@ router.get('/', async (req, res) => {
 })
 
 
-//Insert a post
-router.post('/', upload.single("image"), async (req, res) => {
+//Insert a cat
+router.post('/', async (req, res) => {
     const category = new Category({
         name: req.body.name,
-        image: req.file.filename,
-        
+        image: req.body.image,
     });
     try {
         const savedCategory = await category.save()
@@ -70,12 +58,12 @@ router.delete('/:id', async (req, res) => {
 
 //Update a Category By ID
 
-router.patch('/:id', upload.single("image"), async (req, res) => {
+router.patch('/:id', async (req, res) => {
     try {
         const updateCategory = await Category.findByIdAndUpdate(req.params.id, {
             $set: {
-                name: "test222",
-                image: req.file.filename,
+                name: req.body.name,
+                image: req.body.image,
                 
             }
         })
