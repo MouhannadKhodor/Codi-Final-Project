@@ -81,8 +81,9 @@ function HomeUserPosts() {
             </div>
         </div>
     ));
+
     const lostItems = lost.map((lost, key) => (
-        <div className="col-xs-12 col-sm-6 col-md-4" key={key}>
+        <div className="col-xs-12 col-sm-6 col-md-4 " key={key}>
             <div className="card mb-4 itemHover">
                 <div className="view overlay">
                     <img className="card-img-top" height="250" src={'http://localhost:8000/public/' + lost.image} alt={lost.image} />
@@ -128,7 +129,6 @@ function HomeUserPosts() {
                 <div className="HrContent"><span><h4>Latest Lost Items</h4></span><hr /></div>
                 <div className="card-deck row">
                     {lostItems}
-
                 </div>
                 <div className="form-group">
                     <button className=" viewMoreBtn btn-lg float-right"

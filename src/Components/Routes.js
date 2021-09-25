@@ -14,6 +14,7 @@ import CateegoryItemsPage from './CategoryItemsPage/CategoryItemsPage';
 import UserProfile from './UserProfile/UserProfile';
 import UserPosts from './UserPosts/UserPosts';
 import PostEdit from './PostEdit/PostEdit';
+import Messages from './Messages/Messages';
 export default function Routes() {
 
     const {
@@ -36,6 +37,7 @@ export default function Routes() {
             <PrivateRoute path="/Profile" component={UserProfile} exact access_token={access_token} role={role}/>
             <PrivateRoute path="/Posts" component={UserPosts} exact access_token={access_token} role={role} />
             <PrivateRoute path="/PostEdit/:id" component={PostEdit} exact access_token={access_token} role={role} />
+            <PrivateRoute path="/Messages" component={Messages} exact access_token={access_token} role={role} />
 
             {/* here are the Admin routes */}
             <PrivateRoute path="/HomeAdmin"  exact access_token={access_token} role={role}/>

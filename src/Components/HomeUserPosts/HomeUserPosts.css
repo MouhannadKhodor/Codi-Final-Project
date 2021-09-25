@@ -46,4 +46,9 @@
   .itemHover:hover{
     cursor:pointer;
     box-shadow: #feab3b 0px 4px 12px;
+    transform:scale(1.08);
+    transition: 0.3s;
+  }
+  .itemHover{
+    transition: 0.3s;
   }

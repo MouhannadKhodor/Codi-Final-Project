@@ -3,6 +3,7 @@ import './UserNavbar.css'
 import avatar from '../../Images/avatar.png'
 import SessionContext from '../session/SessionContext';
 import { Link } from 'react-router-dom';
+
 function UserNavbar() {
     const {
         actions: { logout },
@@ -19,6 +20,7 @@ function UserNavbar() {
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <Link className="dropdown-item" to="/Profile">Profile</Link>
                             <Link className="dropdown-item" to="/Posts">Posts</Link>
+                            <Link className="dropdown-item" to="/Messages">Messages</Link>
                                 <hr />
                             <Link className="dropdown-item" to="#"><i className="fas fa-sign-out-alt" style={{ color: "#feab3b",fontSize:'20px' }} onClick={logout}></i></Link>
                         </div>

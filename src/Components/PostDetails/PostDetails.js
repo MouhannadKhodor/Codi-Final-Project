@@ -98,16 +98,16 @@ function PostDetails() {
     console.log(postData)
     return (
         <>
-            {(post[0] == undefined) ? <center><ReactLoading type="balls" color="#feab3b" height={667} width={375} /></center> :
+            {(post[0] == undefined) ? <center><ReactLoading type="cylon" color="#feab3b" height={667} width={375} /></center> :
 
                 <>
                     <UserNavbar></UserNavbar>
                     <div className="container" style={{ marginTop: '120px' }}>
                         <div className="card" style={{ border: 'none' }}>
                             <div className="row">
-                                <div className="col col-sm-5 col-md-6 w-50 " >
+                                <div className="col col-sm-5 col-md-6  " >
                                     <div className="item-gallery PostDetailImg" style={{ height: '100%' }}>
-                                        <img src={'http://localhost:8000/public/' + post[0].image} width="100%" height="70%" style={{ marginTop: '30px' }} alt={post[0].image} />
+                                        <img src={'http://localhost:8000/public/' + post[0].image} width="100%" height="80%" style={{ marginTop: '30px',borderRadius:'30px' }} alt={post[0].image} />
                                     </div>
                                 </div>
                                 <aside className="col-sm-7 col-md-6">

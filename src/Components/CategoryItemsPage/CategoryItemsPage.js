@@ -40,7 +40,7 @@ function CateegoryItemsPage() {
 
   
   const catItems = catPosts.map((post, key) => (
-    <div className="col-xs-12 col-sm-6 col-md-4 " key={key}>
+    <div className="col-xs-12 col-sm-6 col-md-4 w3-animate-zoom" key={key}>
       <div className="card mb-4 itemHover">
         <div className="view overlay">
           <img className="card-img-top" height="250" src={'http://localhost:8000/public/' + post.image} alt={post.image} />
