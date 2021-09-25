@@ -65,5 +65,18 @@ router.delete('/:id', async (req, res) => {
     }
 })
 
+//get all messages where Id of sender or receiver = userID
+router.get('/all/:id', async (req, res) => {
+    try {
+        const receivedMessage = await Message.find({receiverID:req.params.id}).sort({ date: -1 })
+        const sentMessage = await Message.find({senderID:req.params.id}).sort({ date: -1 })
+        const all = Array.prototype.concat(receivedMessage,sentMessage)
+        res.json(all)
+
+
+    } catch (err) {
+        res.json({ err })
+    }
+})
 
 module.exports = router;
