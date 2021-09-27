@@ -13,6 +13,10 @@ const MessageSchema = mongoose.Schema({
         type:String,
         required:true,
     },
+    receiverUsername:{
+        type:String,
+        required:true,
+    },
     message:{
         type:String,
         required:true,

@@ -3,7 +3,8 @@ const router = express.Router();
 const Message = require('../models/Message')
 //Routes
 
-
+const connectMultiparty = require ("connect-multiparty");
+const multipartMiddleware = connectMultiparty();
 //Get all messages
 router.get('/', async (req, res) => {
     try {
@@ -15,12 +16,13 @@ router.get('/', async (req, res) => {
 })
 
 
-//Insert a post
+//Insert a message
 router.post('/', async (req, res) => {
     const message = new Message({
         senderID: req.body.senderID,
         receiverID: req.body.receiverID,
         senderUsername: req.body.senderUsername,
+        receiverUsername: req.body.receiverUsername,
         message: req.body.message,
     });
     try {
@@ -29,7 +31,7 @@ router.post('/', async (req, res) => {
     } catch (err) {
         return  res.json({ message :err })
     }
-})
+},multipartMiddleware)
 
 //Get received messages
 router.get('/received', async (req, res) => {
