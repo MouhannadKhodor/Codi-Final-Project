@@ -29,15 +29,14 @@ export const BoxUpload = styled.div`
     display: grid;
     margin-top: 20px;
     place-items: center;
-    border: 1px dashed black;
+    // border: 1px dashed black;
     /* padding: 36px 48px; */
     position: relative;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    // box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
     height: 250px;
     width: 350px;
-
-    background: #FBFBFF;
-    border-radius: 20px;
+    // background: #FBFBFF;
+    // border-radius: 20px;
 
     .image-upload {
         display: flex;
@@ -59,13 +58,22 @@ export const BoxUpload = styled.div`
 
 export const ImagePreview = styled.div`
     position: relative;
+    height: 250px;
+    width: 350px;
+    overflow: hidden;
+    border: 1px dashed black;
+    border-radius: 30px;
+    box-shadow: rgb(50 50 93 / 25%) 0px 50px 100px -20px, rgb(0 0 0 / 30%) 0px 30px 60px -30px;
+    background: #FBFBFF;
     /* cursor: pointer; */
 
     #uploaded-image{
-        height: 250px;
-        width: 350px;
-        object-fit: cover;
-        border-radius: 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
     }
 
     .close-icon{

@@ -218,7 +218,7 @@
 }
 
 .msg_send_btn {
-	background: #05728f none repeat scroll 0 0;
+	background: #feab3b none repeat scroll 0 0;
 	border:none;
 	border-radius: 50%;
 	color: #fff;
@@ -229,6 +229,11 @@
 	right: 0;
 	top: 11px;
 	width: 33px;
+}
+.msg_send_btn:hover{
+	background-color: #fff;
+	color: #feab3b;
+	border:1px solid #feab3b
 }
 
 .messaging {

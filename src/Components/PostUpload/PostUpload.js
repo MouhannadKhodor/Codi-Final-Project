@@ -126,7 +126,7 @@ function PostUpload() {
                                                                 alt="placeholder"
                                                                 style={{ width: 100, height: 100 }}
                                                             />
-                                                            <p style={{ color: "#444" }}>Click to upload image</p>
+                                                            <p style={{ color: "#444", marginTop: 10 }}>Click to upload image</p>
                                                         </label>
 
                                                         <input

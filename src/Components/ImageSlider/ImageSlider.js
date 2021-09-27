@@ -5,7 +5,7 @@ import img2 from '../../Images/road220058.jpg'
 import img3 from '../../Images/88h.jpg'
 function ImageSlider() {
     return (
-        <div className="container-fluid " style={{marginTop:'80px'}}>
+        <div className="container-fluid " style={{marginTop:'70px'}}>
             <div id="carouselExampleCaptions" className="carousel slide carousel-fade" data-ride="carousel">
                 <ol className="carousel-indicators">
                     <li data-target="#carouselExampleCaptions" data-slide-to="0" className="active"></li>
