@@ -62,7 +62,7 @@ router.post('/register', async (req,res) => {
 router.get('/:id',async(req,res)=>{
     try{
         const user = await User.findById(req.params.id)
-          res.json(user)
+          res.json({id:user.id,username:user.username,email:user.email})
           
       }catch(err){
           res.json({ message:err })
