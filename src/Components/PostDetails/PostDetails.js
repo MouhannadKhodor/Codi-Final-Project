@@ -7,11 +7,37 @@ import Footer from "../Footer/Footer"
 import { useParams } from 'react-router-dom';
 import ReactLoading from 'react-loading';
 import { Link } from 'react-router-dom'
+import { getCookie } from '../../cookies'
+import Modal from 'react-modal'
+import { toast } from "react-toastify"
+import axios from "axios"
+import { Redirect } from "react-router"
+
 function PostDetails() {
 
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: '50%',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            border: "1px solid #feab3b"
+        }
+    };
+    const [message, setMessage] = useState('')
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const setModalIsOpenToTrue = () => {
+        setModalIsOpen(true)
+    }
+    const setModalIsOpenToFalse = () => {
+        setModalIsOpen(false)
+    }
+    let user = getCookie('id');
     let id = useParams()
     const [post, setPost] = useState([]);
     const [postData, setPostData] = useState([])
+    const [userData, setUserData] = useState([])
 
     useEffect(() => {
         const request = async () => {
@@ -36,10 +62,36 @@ function PostDetails() {
                         }
                     }
                 })
+
+
         }
         request();
 
     }, [id])
+    useEffect(() => {
+        if (!post.length) {
+            console.log("getting user data");
+        } else {
+            fetch(`http://localhost:8000/api/user/${post[0].userID}`, {
+                method: "get",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            }).then((response) => response.json()) //2
+                .then((data) => {
+                    if (data) {
+                        if (typeof data[0] === 'object') {
+                            setUserData(data);
+                        }
+                        else {
+                            setUserData([data]);
+                        }
+                    }
+                })
+        }
+    }, [post])
     useEffect(() => {
         if (post[0] == undefined) {
             return console.log("it is still undefined")
@@ -80,8 +132,6 @@ function PostDetails() {
                     <div className="mask mx-2 mt-1">
                         {data.date.slice(0, 10) + ' ' + data.date.slice(11, 16)}
                     </div>
-
-
                 </div>
                 <div className="card-body">
                     <h4 className="card-title">{data.title}</h4>
@@ -92,14 +142,40 @@ function PostDetails() {
             </div>
         </div>
     ));
+    const sendMessage = async () => {
 
+        if (userData[0] === undefined) {
+            console.log("still")
+        } else {
+            if(message === undefined || message ==""){
+                return toast.error("message must not be empty")
+            }
+            else{
+                const fdata = {};
+            fdata['senderID'] = getCookie('id');
+            fdata['receiverID'] = userData[0].id;
+            fdata['senderUsername'] = getCookie('username');
+            fdata['receiverUsername'] = userData[0].username;
+            fdata['message'] = message;
 
+            axios.post("http://localhost:8000/messages", fdata)
 
-    console.log(postData)
+            toast.success("message has been sent", {
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            setModalIsOpenToFalse();
+            
+            }
+        }
+    }
     return (
         <>
-            {(post[0] == undefined) ? <center><ReactLoading type="cylon" color="#feab3b" height={667} width={375} /></center> :
-
+            {(post[0] === undefined) ? <center><ReactLoading type="cylon" color="#feab3b" height={667} width={375} /></center> :
                 <>
                     <UserNavbar></UserNavbar>
                     <div className="container" style={{ marginTop: '120px' }}>
@@ -107,13 +183,12 @@ function PostDetails() {
                             <div className="row">
                                 <div className="col col-sm-5 col-md-6  " >
                                     <div className="item-gallery PostDetailImg" style={{ height: '100%' }}>
-                                        <img src={'http://localhost:8000/public/' + post[0].image} width="100%" height="80%" style={{ marginTop: '30px',borderRadius:'30px' }} alt={post[0].image} />
+                                        <img src={'http://localhost:8000/public/' + post[0].image} width="100%" height="80%" style={{ marginTop: '30px', borderRadius: '30px' }} alt={post[0].image} />
                                     </div>
                                 </div>
                                 <aside className="col-sm-7 col-md-6">
                                     <article className="card-body p-5">
                                         <h3 className="title mb-3 text-warning">{post[0].title}</h3>
-
                                         <dl className="item-property">
                                             <dt>Description</dt>
                                             <dd><p>{post[0].description}</p></dd>
@@ -133,7 +208,7 @@ function PostDetails() {
                                         <dl className="param param-feature">
                                             <hr />
                                             <dd>
-                                                <button className="btn btn-warning" value="send a message" style={{ float: 'right' }} >
+                                                <button onClick={setModalIsOpenToTrue} className="btn btn-warning" value="send a message" style={{ float: 'right' }} >
                                                     <div style={{ display: 'inline-block' }}>
                                                         <div className="imgWrapper" style={{ border: '2px dotted white', borderRadius: '50%' }}>
                                                             <img src={msg} width="20px" height="20px" alt="msgIcon" />
@@ -141,24 +216,13 @@ function PostDetails() {
                                                     </div>
                                                     &nbsp;message
                                                 </button>
-                                                <button className="btn btn-warning" value="send a message" style={{ float: 'right', marginRight: "10px" }} >
-                                                    <div style={{ display: 'inline-block' }}>
-                                                        <div className="imgWrapper" style={{ border: '2px dotted white', borderRadius: '50%' }}>
-                                                            <i className="bi bi-star" style={{ color: 'white' }}></i>
-                                                        </div>
-                                                    </div>
-                                                    &nbsp;add to favorites
-                                                </button>
                                             </dd>
                                         </dl>
-
-
                                     </article>
                                 </aside>
                             </div>
                         </div>
                     </div>
-
                     {/* -------------------------------------- items in the same area---------------------------------------------- */}
                     <div className="container">
                         <div className="HrContent"><span><h4>Posts from the same area</h4></span><hr /></div>
@@ -167,9 +231,37 @@ function PostDetails() {
                         </div>
                     </div>
                     <Footer></Footer>
-                </>}
+                </>
+            }
+
+            <Modal style={customStyles} isOpen={modalIsOpen} ariaHideApp={false}>
+                <button onClick={setModalIsOpenToFalse}
+                    style={{
+                        border: '1px solid black',
+                        borderRadius: '50%',
+                        width: '30px',
+                        height: '30px',
+                        backgroundColor: 'black',
+                        color: 'white'
+                    }}
+                >x</button>
+
+                <div className="input-group" style={{
+                    display: 'inline-block',
+                    fontSize: '15px'
+                }}>
+                    <center>
+                        <span>Enter your text message</span>
+                        <hr />
+                    </center>
+                    <div>
+                        <textarea onChange={(e) => { setMessage(e.target.value) }} className="form-control" rows="5" aria-label="With textarea"></textarea>
+                    </div>
+                    <center><button onClick={sendMessage} className="btn btn-warning mt-2">Send message</button></center>
+                </div>
+            </Modal>
         </>
     )
 }
-
 export default PostDetails
+

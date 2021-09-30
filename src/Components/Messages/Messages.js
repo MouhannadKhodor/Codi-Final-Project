@@ -12,9 +12,11 @@ function Messages() {
     const [messages, setMessages] = useState([]);
     const [user, setUser] = useState()
     const [userMsg, setUserMsg] = useState();
+    const [state,setState] = useState(false)
     var userID;
 
     const handleSendMsg = async () => {
+        setState(true)
         document.getElementById("myForm").reset();
         if (userMsg === undefined) {
             return toast.error("message must not be empty", {
@@ -32,10 +34,9 @@ function Messages() {
         fdata['senderUsername'] = getCookie('username');
         fdata['receiverUsername'] = user;
         fdata['message'] = userMsg
-        console.log(fdata)
+
 
         axios.post("http://localhost:8000/messages", fdata)
-            .then(res => console.log(res.data))
     }
 
     useEffect(() => {
@@ -62,10 +63,9 @@ function Messages() {
         };
         getMsg()
 
-    }, [handleSendMsg])
+    }, [state])
 
 
-    console.log(messages)
 
 
     let chats = {};
@@ -74,7 +74,6 @@ function Messages() {
         if (m.senderID !== id) chats[m.senderID] = m.senderUsername;
     });
 
-    // console.log({ chats });
 
 
     // const users = distinctUsers.map((data, key) => (
@@ -119,7 +118,7 @@ function Messages() {
         return true;
     });
       
-      console.log(receivedMsgs)
+
 
     const sentMsgs= messages.filter(function(item) {
         for (var key in filter2) {
@@ -129,9 +128,8 @@ function Messages() {
         return true;
     });
       
-      console.log(sentMsgs)
 
-    console.log(Array.prototype.concat(receivedMsgs,sentMsgs));
+
     let all = Array.prototype.concat(receivedMsgs,sentMsgs)
 
     const sortmsg =
