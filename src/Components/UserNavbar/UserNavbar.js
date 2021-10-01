@@ -42,7 +42,7 @@ function UserNavbar() {
                             <Link className="nav-link" to="/FoundItems">Found items</Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link " href="#">Contact Us</a>
+                            <Link className="nav-link " to="/contactUs">Contact Us</Link>
                         </li>
                         <li className="nav-item mt-1">
                             <button className="btn navPostBtn"><i className="bi bi-plus-circle-dotted"></i>&nbsp;<Link to="/PostUpload" style={{ textDecoration: 'none', color: 'white' }}>POST</Link></button>
