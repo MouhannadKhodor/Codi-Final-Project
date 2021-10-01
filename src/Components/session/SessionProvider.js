@@ -59,12 +59,13 @@ export default function SessionProvider({ children }) {
 
         setCookie('id', data.id);
         setCookie('access_token', access_token);
-        setCookie('role',data.role)
-        setCookie('username',data.username)
+        setCookie('role',data.role);
+        setCookie('username',data.username);
+        setCookie('email',data.email);
+        console.log(getCookie('email'))
         updateSession({ user });
         toast(`Welcome ${data.username}!`);
-        console.log(session)
-        
+        console.log(session);
     }
 
     function logout() {

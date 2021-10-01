@@ -28,14 +28,13 @@ function Messages() {
                 progress: undefined,
             })
         }
+
         const fdata = {};
         fdata['senderID'] = id;
         fdata['receiverID'] = userID;
         fdata['senderUsername'] = getCookie('username');
         fdata['receiverUsername'] = user;
-        fdata['message'] = userMsg
-
-
+        fdata['message'] = userMsg;
         axios.post("http://localhost:8000/messages", fdata)
     }
 

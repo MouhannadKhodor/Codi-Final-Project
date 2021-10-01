@@ -147,37 +147,39 @@ function PostDetails() {
         if (userData[0] === undefined) {
             console.log("still")
         } else {
-            if(message === undefined || message ==""){
+            if (message === undefined || message == "") {
                 return toast.error("message must not be empty")
             }
-            else{
+            else {
                 const fdata = {};
-            fdata['senderID'] = getCookie('id');
-            fdata['receiverID'] = userData[0].id;
-            fdata['senderUsername'] = getCookie('username');
-            fdata['receiverUsername'] = userData[0].username;
-            fdata['message'] = message;
+                fdata['senderID'] = getCookie('id');
+                fdata['receiverID'] = userData[0].id;
+                fdata['senderUsername'] = getCookie('username');
+                fdata['receiverUsername'] = userData[0].username;
+                fdata['message'] = message;
 
-            axios.post("http://localhost:8000/messages", fdata)
+                axios.post("http://localhost:8000/messages", fdata)
 
-            toast.success("message has been sent", {
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-            });
-            setModalIsOpenToFalse();
-            
+                toast.success("message has been sent", {
+                    autoClose: 2000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    color:"blue",
+                });
+                setModalIsOpenToFalse();
+
             }
         }
     }
     return (
         <>
+         <UserNavbar></UserNavbar>
             {(post[0] === undefined) ? <center><ReactLoading type="cylon" color="#feab3b" height={667} width={375} /></center> :
                 <>
-                    <UserNavbar></UserNavbar>
+                   
                     <div className="container" style={{ marginTop: '120px' }}>
                         <div className="card" style={{ border: 'none' }}>
                             <div className="row">
@@ -208,14 +210,20 @@ function PostDetails() {
                                         <dl className="param param-feature">
                                             <hr />
                                             <dd>
-                                                <button onClick={setModalIsOpenToTrue} className="btn btn-warning" value="send a message" style={{ float: 'right' }} >
-                                                    <div style={{ display: 'inline-block' }}>
-                                                        <div className="imgWrapper" style={{ border: '2px dotted white', borderRadius: '50%' }}>
-                                                            <img src={msg} width="20px" height="20px" alt="msgIcon" />
+                                                {(userData.length && userData[0].username === getCookie('username'))
+                                                    ?
+                                                    ""
+                                                    :
+                                                    <button onClick={setModalIsOpenToTrue} className="btn btn-warning" value="send a message" style={{ float: 'right' }} >
+                                                        <div style={{ display: 'inline-block' }}>
+                                                            <div className="imgWrapper" style={{ border: '2px dotted white', borderRadius: '50%' }}>
+                                                                <img src={msg} width="20px" height="20px" alt="msgIcon" />
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    &nbsp;message
-                                                </button>
+                                                        &nbsp;message
+                                                    </button>
+                                                }
+
                                             </dd>
                                         </dl>
                                     </article>
