@@ -69,4 +69,35 @@ router.get('/:id',async(req,res)=>{
       }
 })
 
+//update a user 
+router.patch('/:id', async (req, res) => {
+    try {
+        if(req.body.password){
+            const salt = await bcrypt.genSalt(10);
+            const hashPassword = await bcrypt.hash(req.body.password, salt)
+            const updateUser = await User.findByIdAndUpdate(req.params.id, {
+                $set: {
+                    username: req.body.username,
+                    email: req.body.email,
+                    password:hashPassword
+                }
+            })
+            return res.json(updateUser)
+        }
+        else{
+            const updateUser = await User.findByIdAndUpdate(req.params.id, {
+                $set: {
+                    username: req.body.username,
+                    email: req.body.email,
+                }
+            })
+            return res.json(updateUser)
+        }
+        
+
+    } catch (err) {
+        res.json({ message: err })
+    }
+})
+
 module.exports = router
